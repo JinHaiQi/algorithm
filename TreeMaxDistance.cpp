@@ -1,4 +1,9 @@
-#include<iostream>
+//
+//问题定义
+//把二叉树看成一个图，父子节点之间的连线看成是双向的，定义“距离”为两个节点之间的边数。
+//
+//
+#include<iostream> 
 #include<stdlib.h>
 #include<vector>
 using namespace std;
