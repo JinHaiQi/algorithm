@@ -5,74 +5,132 @@
 //另外不对意外出现的符号（例如^）和不符合规范的数学表达式（例如2*-1）做异常处理。
 //
 //
-#include<iostream> 
-#include<stdlib.h>
+
+#include<iostream>
 #include<vector>
+#include<map>
+
 using namespace std;
 
-struct Node;
-typedef Node* PNode;
-int max_distance(PNode);
+//typedef struct oprator
+//{
+//  // jinhaiqitodo
+//  int less(char lc,char rc)
+//  {
+//    int li = oprator.find(lc)->second;
+//    int ri = oprator.find(rc)->second;
+//    return relation[li][ri];
+//  };
+//  
+//  map<char,int> oprator{{'+',0},
+//                        {'-',1},
+//                        {'*',2},
+//                        {'/',3},
+//                        {'(',4},
+//                        {')',5},
+//                        {'#',6}};
+//  int relation[7][7] = 
+//  {
+//    {1,  1,  -1,  -1,  -1,  1,  1},
+//    {1,  1,  -1,  -1,  -1,  1,  1},
+//    {1,  1,  1,   1,   -1,  1,  1},
+//    {1,  1,  1,   1,   -1,  1,  1},
+//    {-1, -1, -1,  -1,  -1,  0,  -2},
+//    {1,  1,  1,   1,   -2,  1,  1},
+//    {-1, -1, -1,  -1,  -1,  -2, 0}
+//  };
+//
+//}oprator;
 
-struct Node
+// 判断字符类型
+// 0，数字；1，符号；-1，非法
+int chartype(char c)
 {
-  PNode lchild;
-  PNode rchild;
-  int data;
+  if( '0' <= c && c <= '9') return 0;
+  if( c == '+'
+      || c == '-'
+      || c == '*' 
+      || c == '/'
+      || c == '('
+      || c == ')'
+      || c == '#'
+    ) return 1;
+  return -1;
+}; 
+
+// 比较两个操作符的优先级
+int com(char op1,char op2)
+{
+  // jinhaiqitodo
+  return 0;
 };
 
-int max(int a,int b)
+// 计算
+int calc(char op,int num1,int num2)
 {
-  return a > b ? a : b;
+  // jinhaiqitodo
+  return -1;
 }
 
-// 求p指向的二叉树的深度
-int h(PNode p)
-{
-  if(NULL == p) return -1;
-  return max(h(p->lchild), h(p->rchild)) + 1;
-}
-
-// 求p指向的二叉树的任意两点间最大距离 
-int max_distance(PNode p)
-{
-  cout << " inside max dis" << endl;
-  if(NULL == p) return -1;
-  return max(max(h(p->lchild) + h(p->rchild) + 2, // 左右子树深度加+2
-                 max_distance(p->lchild)), //左子树最大距离
-            max_distance(p->rchild) // 右子树最大距离
-      );
-}
-
-// 前序遍历初始化一颗二叉树，正整数为有效节点，-1表示空节点，序列以0结尾
-PNode init_tree()
-{
-  int i;
-  cin >> i;
-  if(-1 == i) return NULL;
-  PNode p = new Node;
-  p -> data = i;
-  p->lchild = init_tree();
-  p->rchild = init_tree();
-  return p;
-}
-
-void pre_order(const PNode root)
-{
-  if( NULL == root ) return;
-  cout << root -> data;
-  pre_order(root -> lchild);
-  pre_order(root -> rchild);
-}
 
 int main()
 {
-  PNode ptree = init_tree();
-  pre_order(ptree);
+  vector<char> op_stack;
+  vector<int> num_stack;
+  //oprator opra;
+  string str= "#(1+2)*3#";
+  for(int i; i<str.size();)
+  {
+    char c = str[i];
+    switch(chartype(c))
+    {
+      case 0: // 数字
+        {
+          num_stack.push_back(c);
+          break;
+        };
+      case 1: // 符号
+        {
+          if(op_stack.empty() && c != '#')
+          {
+            cout << "illegal exp!";
+            break;
+          }
+          switch(com(op_stack.back(),c))
+          {
+            case 1:
+            {
+              char op = op_stack.back();
+              int num1 = num_stack.back();
+              num_stack.pop_back();
+              int num2 = num_stack.back();
+              num_stack.pop_back();
+              int rslt = calc(op,num1,num2);
+              num_stack.push_back(rslt);
 
-  cout << max_distance(ptree) << endl;
+
+            }
+            case -1:
+            
+            {
+            }
+            case 0:
+            {}
+            default:
+              {
+                cout << "illegal exp!";
+                break;
+              }
+          }
+        };
+      default:
+        {
+          cout << "illegal exp!";
+          break;
+        }
+    }
+  }
+
   return 0;
 }
-
-
 
