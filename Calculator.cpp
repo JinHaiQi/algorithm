@@ -9,38 +9,31 @@
 #include<iostream>
 #include<vector>
 #include<map>
+#include<unordered_map>
 
 using namespace std;
 
-//typedef struct oprator
-//{
-//  // jinhaiqitodo
-//  int less(char lc,char rc)
-//  {
-//    int li = oprator.find(lc)->second;
-//    int ri = oprator.find(rc)->second;
-//    return relation[li][ri];
-//  };
-//  
-//  map<char,int> oprator{{'+',0},
-//                        {'-',1},
-//                        {'*',2},
-//                        {'/',3},
-//                        {'(',4},
-//                        {')',5},
-//                        {'#',6}};
-//  int relation[7][7] = 
-//  {
-//    {1,  1,  -1,  -1,  -1,  1,  1},
-//    {1,  1,  -1,  -1,  -1,  1,  1},
-//    {1,  1,  1,   1,   -1,  1,  1},
-//    {1,  1,  1,   1,   -1,  1,  1},
-//    {-1, -1, -1,  -1,  -1,  0,  -2},
-//    {1,  1,  1,   1,   -2,  1,  1},
-//    {-1, -1, -1,  -1,  -1,  -2, 0}
-//  };
-//
-//}oprator;
+typedef struct oprator
+{
+
+  string op = "+-*/()#";
+  int find_loca() 
+  {
+
+  }
+
+  int relation[7][7] = 
+  {
+    {1,  1,  -1,  -1,  -1,  1,  1},
+    {1,  1,  -1,  -1,  -1,  1,  1},
+    {1,  1,  1,   1,   -1,  1,  1},
+    {1,  1,  1,   1,   -1,  1,  1},
+    {-1, -1, -1,  -1,  -1,  0,  -2},
+    {1,  1,  1,   1,   -2,  1,  1},
+    {-1, -1, -1,  -1,  -1,  -2, 0}
+  };
+
+}oprator;
 
 // 判断字符类型
 // 0，数字；1，符号；-1，非法
